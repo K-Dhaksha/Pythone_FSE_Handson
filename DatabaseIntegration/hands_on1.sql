@@ -1,0 +1,5 @@
+USE college_db;
+
+SHOW TABLES;
+
+SHOW DATABASES;
