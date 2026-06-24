@@ -1,8 +1,8 @@
--- Create and select the database
+
 CREATE DATABASE IF NOT EXISTS college_db;
 USE college_db;
 
--- departments must come first (other tables reference it)
+
 CREATE TABLE departments (
     department_id INT PRIMARY KEY AUTO_INCREMENT,
     dept_name     VARCHAR(100) NOT NULL,
