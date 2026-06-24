@@ -82,4 +82,4 @@ select dept_name
 from departments d
 join courses c on d.department_id = c.department_id
 join enrollments e on c.course_id = e.course_id
-group by department_id having count(e.student_id)>2;
+group by d.department_id having count(e.student_id)>2;
