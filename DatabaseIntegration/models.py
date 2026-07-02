@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, DECIMAL, ForeignKey
+from sqlalchemy import Column, Boolean, Integer, String, Date, DECIMAL, ForeignKey
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy import create_engine
 
@@ -31,7 +31,7 @@ class Student(Base):
     date_of_birth = Column(Date)
     department_id = Column(Integer, ForeignKey('departments.department_id'))
     enrollment_year = Column(Integer)
-    
+    is_active = Column(Boolean, default=True)
     department = relationship('Department', back_populates='students')
     enrollments = relationship('Enrollment', back_populates='student')
 
@@ -46,6 +46,8 @@ class Course(Base):
     
     department = relationship('Department', back_populates='courses')
     enrollments = relationship('Enrollment', back_populates='course')
+
+    schedules = relationship('CourseSchedule', back_populates='course')
 
 class Enrollment(Base):
     __tablename__ = 'enrollments'
@@ -69,6 +71,19 @@ class Professor(Base):
     salary = Column(DECIMAL(10, 2))
     
     department = relationship('Department', back_populates='professors')
+
+from sqlalchemy import Time
+
+class CourseSchedule(Base):
+    __tablename__ = 'course_schedules'
+    
+    schedule_id = Column(Integer, primary_key=True, autoincrement=True)
+    course_id = Column(Integer, ForeignKey('courses.course_id'))
+    day_of_week = Column(String(20))
+    start_time = Column(Time)
+    end_time = Column(Time)
+    
+    course = relationship('Course', back_populates='schedules')
 
 # Create all tables
 Base.metadata.create_all(engine)
