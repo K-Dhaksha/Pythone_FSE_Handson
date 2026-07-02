@@ -103,7 +103,7 @@ session.commit()
 
 
 
-enrollment = session.query(Enrollment).filter(Enrollment.enrollment_id == 1#).first()
+enrollment = session.query(Enrollment).filter(Enrollment.enrollment_id == 1).first()
 session.delete(enrollment)
 session.commit()
 
