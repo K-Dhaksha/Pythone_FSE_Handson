@@ -2,6 +2,14 @@
 CREATE DATABASE IF NOT EXISTS college_db;
 USE college_db;
 
+USE college_db_orm;
+DELETE FROM enrollments;
+DELETE FROM courses;
+DELETE FROM students;
+DELETE FROM departments;
+
+USE college_db_orm;
+SHOW TABLES;
 
 CREATE TABLE departments (
     department_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -9,6 +17,8 @@ CREATE TABLE departments (
     hod_name      VARCHAR(100),
     budget        DECIMAL(12,2)
 );
+
+CREATE DATABASE college_db_orm;
 
 CREATE TABLE students (
     student_id      INT PRIMARY KEY AUTO_INCREMENT,
