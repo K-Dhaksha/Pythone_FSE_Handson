@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Portal</title>
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="app.js"></script>
 </head>
 
 <body>
@@ -78,6 +79,17 @@
         </div>
 
     </section>
+    <section id="notifications">
+    <h2>Notifications</h2>
+    <div id="loading" style="display:none">
+        Loading...
+    </div>
+    <div id="error-message" style="display:none">
+        <p id="error-text"></p>
+        <button id="retry-btn">Retry</button>
+    </div>
+    <div id="notifications-grid"></div>
+</section>
 
 </main>
 
