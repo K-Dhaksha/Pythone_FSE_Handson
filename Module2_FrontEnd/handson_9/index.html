@@ -1,0 +1,138 @@
+<!-- 
+========================================================================
+LIGHTHOUSE ACCESSIBILITY AUDIT REPORT (SIMULATED BASELINE)
+========================================================================
+Initial Accessibility Score: 74/100
+
+Flagged Issues:
+1. [Medium] Input elements do not have associated labels (missing <label> for #search-courses).
+2. [Low] Image elements do not have [alt] attributes (if any present/added).
+3. [High] Heading elements are not in a sequentially-descending order (skipping H1 directly to H3).
+4. [High] Frame elements do not have a title / Interactive elements do not support keyboard navigation.
+5. [Medium] Elements do not have sufficient color contrast ratio (WCAG AA requires >= 4.5:1).
+   - White text on #3498db (Contrast 3.1:1) - FAIL
+   - Nav Link hover on #2c3e50 (Contrast 2.5:1) - FAIL
+   - Card Span text on White (Contrast 3.1:1) - FAIL
+
+Remediation Actions Applied:
+- Added <label> associated with search inputs.
+- Structured H1 -> H2 -> H3 heading levels sequentially.
+- Changed statistical values to standard paragraph tags instead of H3.
+- Implemented keyboard accessibility (tabindex="0" and keydown handlers).
+- Set ARIA attributes (aria-label, aria-current, aria-live, role="status", aria-expanded).
+- Darkened foreground/background elements to satisfy WCAG AA contrast.
+- Integrated css-vars-ponyfill.
+========================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - Accessible & Compatible</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <!-- CSS Variables Ponyfill for legacy browser support -->
+    <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2/dist/css-vars-ponyfill.min.js"></script>
+    
+    <script type="module" src="app.js"></script>
+</head>
+<body>
+
+<header>
+    <h1 class="site-title">Student Portal</h1>
+
+    <!-- Hamburger menu with ARIA accessibility -->
+    <button class="hamburger" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle Navigation">
+        ☰ Menu
+    </button>
+
+    <nav id="main-nav" aria-label="Main navigation">
+        <ul>
+            <li><a href="#" aria-current="page">Home</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#stats">Profile</a></li>
+            <li><a href="#notifications">Grades</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+    <section id="hero">
+        <h2>Welcome to the Student Portal</h2>
+        <p>
+            Your one-stop destination for managing courses,
+            grades, and your academic journey.
+        </p>
+        <button type="button">Explore Courses</button>
+    </section>
+
+    <section id="courses" aria-labelledby="courses-title">
+        <h2 id="courses-title">Find Your Course</h2>
+
+        <div class="search-controls">
+            <label for="search-courses" class="sr-only">Search courses:</label>
+            <input
+                type="text"
+                id="search-courses"
+                placeholder="Search courses..."
+            >
+            <button id="sort-btn" type="button">
+                Sort by Credits
+            </button>
+        </div>
+
+        <div class="course-grid"></div>
+
+        <!-- Live region for screen readers to announce changes in search results and credits count -->
+        <p id="total-credits" role="status" aria-live="polite"></p>
+
+        <div id="selected-course" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="stats" aria-labelledby="stats-title">
+        <h2 id="stats-title" class="sr-only">Student Statistics</h2>
+
+        <div class="stat-item">
+            <p class="stat-number">3</p>
+            <p class="stat-label">Courses Enrolled</p>
+        </div>
+
+        <div class="stat-item">
+            <p class="stat-number">3.8</p>
+            <p class="stat-label">GPA</p>
+        </div>
+
+        <div class="stat-item">
+            <p class="stat-number">6</p>
+            <p class="stat-label">Semester</p>
+        </div>
+    </section>
+
+    <section id="notifications" aria-labelledby="notifications-title">
+        <h2 id="notifications-title">Notifications</h2>
+        
+        <div id="loading" role="status" aria-live="polite" style="display:none">
+            Loading...
+        </div>
+        
+        <div id="error-message" role="alert" style="display:none">
+            <p id="error-text"></p>
+            <button id="retry-btn" type="button">Retry</button>
+        </div>
+        
+        <div id="notifications-grid"></div>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Student Portal. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
